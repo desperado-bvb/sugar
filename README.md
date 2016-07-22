@@ -44,7 +44,7 @@ no_sigs:1                  //是否捕捉信号
 ```
 
 
-## sugar agent
+## Sugar agent
 单机进程管理守护进程，负责执行master进程指令（to: 监听进程异常退出上报，重启；上报自身节点资源使用情况；重启后故障恢复等）
 
 ```go
@@ -84,7 +84,7 @@ datacenter:"asian"             //数据中心
 pidfile:"pid1.file"
 no_sigs:1
 ```
-## sugar 已实现功能以及使用查询样例
+## Sugar 已实现功能以及使用查询样例
 ```cfg
 1 agent注册   
 2 node查询              curl "http://localhost:10001/servers"
