@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	cfgfile string = "opt1.cfg"
+	xcfgfile string = "opt1.cfg"
 )
 
 func init() {
@@ -15,15 +15,12 @@ func init() {
 }
 
 func main() {
-	//runtime.GOMAXPROCS(runtime.NumCPU())
-	//fmt.Println(runtime.NumCPU())
 
-	opt, err := agent.ProcessConfigFile(cfgfile)
+	opt, err := agent.ProcessConfigFile(xcfgfile)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	//fmt.Println("read configuration success")
 
 	svr := agent.New(opt)
 	svr.Start()
