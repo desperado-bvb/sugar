@@ -70,6 +70,8 @@ func (this *client) start() error {
 }
 
 func (this *client) StartProcess(cmd string) error {
+	this.mu.Lock()
+	defer this.mu.Unlock()
 	request := message.NewStartMessage()
 	request.SetPayload([]byte(cmd))
 
@@ -94,6 +96,8 @@ func (this *client) StartProcess(cmd string) error {
 }
 
 func (this *client) StopProcess(pid int) error {
+	this.mu.Lock()
+        defer this.mu.Unlock()
 	request := message.NewStopMessage()
 	var b = make([]byte,4,4)
 	binary.PutVarint(b, int64(pid))
@@ -119,6 +123,8 @@ func (this *client) StopProcess(pid int) error {
 }
 
 func (this *client) QueryProcess() ([]byte, error) {
+	this.mu.Lock()
+        defer this.mu.Unlock()
 	request := message.NewQueryMessage()
         if err := writeMessage(this.conn, request); err != nil {
                 glog.Errorf("server/client: could not send query  message; %v", err)

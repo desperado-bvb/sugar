@@ -68,13 +68,19 @@ func New(opts *Options) *Server {
 }
 
 func (this *Server) register() {
-	request := message.NewRegisterMessage2(this.ID, this.opts.Cluster, this.opts.DataCenter, this.opts.KeepAlive)
+	hostname, err := os.Hostname()
+        if err != nil {
+                glog.Errorf("server/slave: could not get host Name; %v", err)
+                os.Exit(1)
+        }
+
+	request := message.NewRegisterMessage2(hostname, this.opts.Cluster, this.opts.DataCenter, this.opts.KeepAlive)
 	if err := writeMessage(this.conn, request); err != nil {
                 glog.Errorf("server/slave: could not send register message; %v", err)
                 os.Exit(1)
         }
 
-        _, err := getAckMessage(this.conn)
+        _, err = getAckMessage(this.conn)
         if err != nil {
 		glog.Errorf("server/slave: fail to register; %v", err)
 		os.Exit(1)

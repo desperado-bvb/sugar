@@ -31,7 +31,6 @@ func getQuerydetailMessage(conn io.Closer) (*message.QuerydetailMessage, error) 
         }
 
         msg := message.NewQuerydetailMessage()
-	fmt.Println(msg)
 
         _, err = msg.Decode(buf)
         return msg, err
@@ -105,7 +104,6 @@ func getMessageBuffer(c io.Closer) ([]byte, error) {
 	remlen, _ := binary.Uvarint(buf[1:5])
 	buf = append(buf, make([]byte, remlen)...)
 
-	fmt.Println(buf, remlen)
 
 	for l < len(buf) {
 		n, err := conn.Read(buf[l:])
